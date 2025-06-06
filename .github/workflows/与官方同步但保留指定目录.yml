@@ -1,0 +1,17 @@
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync repository
+        uses: wei/git-sync@v3
+        with:
+          source_repo: 'https://github.com/laravel/framework.git'
+          source_branch: '12.x'
+          destination_branch: '12.x'
+          github_token: ${{ secrets.PAT }}
+          exclude: '.github' # 排除工作流目录
